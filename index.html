@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovense Mini-games</title>
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://vinorodrigues.github.io/bootstrap-dark-5/dist/css/bootstrap-night.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./swiped-events.min.js"></script>
+
+    <script src="./lan-mod.js"></script>
+</head>
+<body>
+
+  <div class="container">
+      <h1>Lovense Arcade</h1>
+
+      <ul class="nav nav-tabs" id="tab-nav" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="setup-tab" data-bs-toggle="tab"
+              data-bs-target="#setup" type="button" role="tab" aria-controls="setup" aria-selected="true">
+            Setup
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tetris-tab" data-bs-toggle="tab"
+              data-bs-target="#tetris" type="button" role="tab" aria-controls="tetris" aria-selected="false">
+            Tetris
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="about-tab" data-bs-toggle="tab"
+              data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="false">
+            About
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="tab-nav-contents">
+
+        <div class="tab-pane fade show active" id="setup" role="tabpanel" aria-labelledby="setup-tab">
+          <h3>Setup and Lovense Connection</h3>
+
+          <p id="setup-loading">Please Wait while we do some loading...</p>
+
+
+        </div>
+
+
+        <div class="tab-pane fade" id="tetris" role="tabpanel" aria-labelledby="tetris-tab"
+            data-swipe-threshold="100"
+            data-swipe-timeout="250">
+          <h3>Tetris</h3>
+          <p>Gain Levels (Every 10 rows), the more you complete the more powerful the Vibrations, and if you fail. BE PREPARED.</p>
+          <div class="row">
+            <div class="col-md-4">
+              <em><code>Left/Right</code> Arrow Keys / Swipes to move Item.</em>
+            </div>
+            <div class="col-md-4">
+              <em><code>Up</code> Arrow Key / Swipe to rotate Item.</em>
+            </div>
+            <div class="col-md-4">
+              <em><code>Down</code> Arrow Key / Swipe to drop Item.</em>
+            </div>
+          </div>
+
+          <canvas width="350" height="700" id="canvas-tetris" style="border: 1px solid black;"></canvas>
+          <br />
+          <label>Level: <span id="tetris-level">1</span></label>
+
+          <button class="btn btn-success" id="tetris-start">Start</button>
+
+        </div>
+
+
+        <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+          <h3>About</h3>
+          <p>This is a simple arcade game that I made for the Lovense Dev Jam (18th of June, 2022).</p>
+          <p>The game is a tetris clone, but with a few extra features ;).</p>
+          <p>Please check out my <a href="https://github.com/lat3xkitty">Github</a> for other Kinky projects like this</p>
+          <p>Or my <a href="https://lat3xkitty.github.io/">Website</a> for more about me and the stuff I do.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+
+    <script src="global.js"></script>
+
+    <script src="connection.js"></script>
+    <script src="tetris.js"></script>
+
+
+    <style>
+      html,
+      body {
+          overscroll-behavior-y: contain;
+      }
+    </style>
+</body>
+</html>
