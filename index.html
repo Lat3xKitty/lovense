@@ -47,6 +47,7 @@
         <div class="tab-pane fade show active" id="setup" role="tabpanel" aria-labelledby="setup-tab">
           <h3>Setup and Lovense Connection</h3>
 
+
           <p id="setup-loading">Please Wait while we do some loading...</p>
 
 
@@ -63,14 +64,25 @@
               <em><code>Left/Right</code> Arrow Keys / Swipes to move Item.</em>
             </div>
             <div class="col-md-4">
-              <em><code>Up</code> Arrow Key / Swipe to rotate Item.</em>
+              <em><code>Up</code> Arrow Key / `Tap` to rotate Item.</em>
             </div>
             <div class="col-md-4">
-              <em><code>Down</code> Arrow Key / Swipe to drop Item.</em>
+              <em><code>Space</code> Key / `Swipe Down` down to Drop.</em>
+            </div>
+            <div class="col-md-4">
+              <em>PC Only: <code>Down</code> Arrow Key to Lower Item.</em>
+            </div>
+            <div class="col-md-4">
+              <em><code>C</code> Key to Hold Item.</em>
             </div>
           </div>
+          <!-- input with a label -->
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="tetris-intense-mode">
+            <label class="form-check-label" for="tetris-intense-mode">Enable INTENSE Mode (Will constantly Vibrate based upon the Current Level, so it get's harder the further you advance ;) )</label>
+          </div>
 
-          <canvas width="350" height="700" id="canvas-tetris" style="border: 1px solid black;"></canvas>
+          <canvas width="300" height="600" id="canvas-tetris" style="border: 1px solid black;"></canvas>
           <br />
           <label>Level: <span id="tetris-level">1</span></label>
 

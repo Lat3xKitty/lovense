@@ -23,6 +23,7 @@ var interval = null,
 
 var GameOver = false;
 var isFrozen = false;
+var isIntense = false;
 var totalRowsDismissed = 0;
 
 
@@ -100,6 +101,15 @@ function keyPress( key ) {
       if (isValid( 0, 0, rotated) ) {
           current = rotated;
       }
+      else if (currentX <= 3 && isValid(1, 0, rotated)) {
+        ++currentX;
+        current = rotated;
+      }
+      else if (currentX >= 7 && isValid(-1, 0, rotated)) {
+        --currentX;
+        current = rotated;
+      }
+
       break;
     case 'drop':
       while(isValid(0, 1) ) {
@@ -156,6 +166,7 @@ function newGame() {
   init();
   newShape();
   GameOver = false;
+  isIntense = $('#tetris-intense-mode').prop('checked');
   interval = setInterval( tick, 400 );
 
   totalRowsDismissed = 0;
@@ -405,6 +416,7 @@ function checkClearLines() {
 
     var level = Math.floor(totalRowsDismissed / 10) + 1;
 
+
     for (let i = 0; i < enabledToys.length; i++) {
       const toy = enabledToys[i];
 
@@ -413,13 +425,32 @@ function checkClearLines() {
       var vibrationLevel = level * totalRows * 1.5;
       if (vibrationLevel > 20) { vibrationLevel = 20; }
 
-      lovense.sendVibration(toy, Math.abs(vibrationLevel), 1);
+      lovense.sendVibration(
+        toy, Math.abs(vibrationLevel),
+
+        (isIntense ? 2 : 1)
+        // Vibrate 2 seconds for intense mode so we can overwrite the previous vibration in a second
+      );
     }
 
+    setTimeout(function() {
+      for (let i = 0; i < enabledToys.length; i++) {
+        const toy = enabledToys[i];
 
-    $('#tetris-level').text(
-      Math.floor( totalRowsDismissed / 10 ) + 1
-    );
+        // Vibration Level is based upon the Current Level of the Game
+        var lvlVibrate = level;
+        if (lvlVibrate > 20) {
+          lvlVibrate = 20;
+        }
+
+        lovense.sendVibration(
+          toy, lvlVibrate, 0
+        );
+      }
+    }, 1000);
+
+
+    $('#tetris-level').text( level );
   }
 
   // Display level

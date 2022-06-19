@@ -14,6 +14,7 @@ $(function() {
 
       var keys = Object.keys(response)
       if (keys.length === 0) {
+        enabledToys = [];
         $('#setup').append(
           '<div class="alert alert-danger" role="alert">' +
             '<strong>Error!</strong> No toys found.' +
@@ -25,9 +26,14 @@ $(function() {
           '</p>' +
 
           '<p>' +
+            'If you are still seeing the "No toys found", please verify that you can see all the toys at '+
+            '<a href="https://api.lovense.com/api/lan/getToys">GetToys Endpoint</a>'+
+          '</p>' +
+
+          '<em>' +
             'This does function without the app, but you will not be able to ' +
-            'TRUELY Experience the game.' +
-          '</p>'
+            'TRULY Experience the game.' +
+          '</em>'
         );
       }
       else {
@@ -113,6 +119,24 @@ $(function() {
             lovense.sendVibration(toys[index].id, 3, 1);
           }
         });
+    },
+    error: function (response) {
+      enabledToys = [];
+      $('#setup').append(
+        '<div class="alert alert-danger" role="alert">' +
+          '<strong>Error!</strong> Unable to Access "GetToys" function from Lovense.' +
+        '</div>' +
+
+        '<p>' +
+          'We use the Lovense Connect App to connect to your toys. ' +
+          'Please install the app and try again.' +
+        '</p>' +
+
+        '<p>' +
+          'This does function without the app, but you will not be able to ' +
+          'TRUELY Experience the game.' +
+        '</p>'
+      );
     }
   });
 
