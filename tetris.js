@@ -68,6 +68,7 @@ $('body').on('keydown', function(e) {
   }
 
   if (keys[e.keyCode]) {
+    e.preventDefault();
     keyPress(keys[e.keyCode]);
     render();
   }
@@ -78,6 +79,7 @@ $('#canvas-tetris').on('swiped', function(e) {
     keyPress(e.detail.dir);
   }
   if (e.detail.dir === 'down') {
+    e.preventDefault();
     keyPress('drop');
   }
 
@@ -140,6 +142,23 @@ $('#tetris-start').on('click', function() {
   newGame();
 
   this.disabled = true;
+});
+
+$('#tetris-mobilefix').on('click', function() {
+  if (!$('.canvas-container').hasClass('mobile-fix')) {
+
+    $('.canvas-container')
+      .prop('style' ,
+        'width: 100%; height: 100%; '+
+        'position: absolute; top: 0; left: 0; padding: 15px;'+
+        'overflow: hidden; '+
+        'background: #212121; border: 1px solid black;')
+      .addClass('mobile-fix');
+
+  }
+  else {
+    $('.canvas-container').prop('style', 'border: 1px solid black');
+  }
 })
 
 // ====================================================================
@@ -433,21 +452,23 @@ function checkClearLines() {
       );
     }
 
-    setTimeout(function() {
-      for (let i = 0; i < enabledToys.length; i++) {
-        const toy = enabledToys[i];
+    if (isIntense) {
+      setTimeout(function() {
+        for (let i = 0; i < enabledToys.length; i++) {
+          const toy = enabledToys[i];
 
-        // Vibration Level is based upon the Current Level of the Game
-        var lvlVibrate = level;
-        if (lvlVibrate > 20) {
-          lvlVibrate = 20;
+          // Vibration Level is based upon the Current Level of the Game
+          var lvlVibrate = level;
+          if (lvlVibrate > 20) {
+            lvlVibrate = 20;
+          }
+
+          lovense.sendVibration(
+            toy, lvlVibrate, 0
+          );
         }
-
-        lovense.sendVibration(
-          toy, lvlVibrate, 0
-        );
-      }
-    }, 1000);
+      }, 1000);
+    }
 
 
     $('#tetris-level').text( level );

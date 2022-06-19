@@ -82,11 +82,15 @@
             <label class="form-check-label" for="tetris-intense-mode">Enable INTENSE Mode (Will constantly Vibrate based upon the Current Level, so it get's harder the further you advance ;) )</label>
           </div>
 
-          <canvas width="300" height="600" id="canvas-tetris" style="border: 1px solid black;"></canvas>
-          <br />
-          <label>Level: <span id="tetris-level">1</span></label>
+          <div class="canvas-container">
+            <canvas scrolling="no" width="300" height="600" id="canvas-tetris" style="border: 1px solid black;"></canvas>
 
-          <button class="btn btn-success" id="tetris-start">Start</button>
+            <br />
+            <label>Level: <span id="tetris-level">1</span></label>
+
+            <button class="btn btn-success" id="tetris-start">Start</button>
+            <button class="btn btn-danger" id="tetris-mobilefix">Fullscreen?</button>
+          </div>
 
         </div>
 
