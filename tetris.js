@@ -152,12 +152,13 @@ $('#tetris-mobilefix').on('click', function() {
         'width: 100%; height: 100%; '+
         'position: absolute; top: 0; left: 0; padding: 15px;'+
         'overflow: hidden; '+
-        'background: #212121; border: 1px solid black;')
+        'background: #212121; text-align: center;')
       .addClass('mobile-fix');
 
   }
   else {
-    $('.canvas-container').prop('style', 'border: 1px solid black');
+    $('.canvas-container').prop('style', '')
+      .removeClass('mobile-fix');
   }
 })
 

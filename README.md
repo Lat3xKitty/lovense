@@ -15,13 +15,13 @@ Enable the Intense mode if you would like to play a bit more of a spicer version
 
 
 ## Play
-`Left/Right` Arrow Keys / Swipes to move Item.
-`Up` Arrow Key / `Tap` to rotate Item.
-`Down` Arrow Key / Swipe to drop Item.
+`Left/Right` Arrow Keys / Swipes to move Item.<br>
+`Up` Arrow Key / `Tap` to rotate Item.<br>
+`Space` Key / `Down` Swipe to drop Item.<br>
 
-
-PC Only:
-Use `C` to Store the current Item
+PC Only:<br>
+Use `C` to Store the current Item.<br>
+`Down` Arrow Key to lower Item.
 
 #### Screenshots
 ![Setup Page](Picture1.png)
