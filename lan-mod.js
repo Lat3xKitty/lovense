@@ -85,37 +85,45 @@
     }, options.timeout)
   }
 
-  // function checkLocalConnect() {
-  //   ajax({
-  //     url: `https://127-0-0-1.lovense.club:${localConnectPort}/command`,
-  //     data: {
-  //       command: 'GetToys',
-  //     },
-  //     type: 'POST',
-  //     dataType: 'json',
-  //     success: function(response) {
-  //       var data = response
-  //       if (typeof response === 'string') {
-  //         data = JSON.parse(response)
-  //       }
-  //       if (data.data && data.data.toys) {
-  //         toyMap = JSON.parse(data.data.toys)
-  //         isLocalConnect = true
-  //       }
-  //     },
-  //     error: function(status) {
-  //       isLocalConnect = false
-  //       if (localConnectPort < 30015) {
-  //         localConnectPort++
-  //       } else {
-  //         localConnectPort = 30010
-  //       }
-  //     },
-  //   })
-  // }
+  function checkLocalConnect() {
+    ajax({
+      url: `https://127-0-0-1.lovense.club:${localConnectPort}/command`,
+      data: {
+        command: 'GetToys',
+      },
+      type: 'POST',
+      dataType: 'json',
+      success: function(response) {
+        var data = response
+        if (typeof response === 'string') {
+          data = JSON.parse(response)
+        }
+        if (data.data && data.data.toys) {
+          toyMap = JSON.parse(data.data.toys)
+          isLocalConnect = true;
 
-  // var checkLocalConnectInterval = setInterval(checkLocalConnect, 3 * 1000)
-  // checkLocalConnect()
+          if (typeof window.localSuccess === "function") {
+            window.localSuccess();
+          }
+        }
+      },
+      error: function(status) {
+        isLocalConnect = false
+        if (localConnectPort < 30015) {
+          localConnectPort++
+        } else {
+          localConnectPort = 30010
+        }
+      },
+    })
+  }
+
+  var checkLocalConnectInterval = setInterval(checkLocalConnect, 3 * 1000)
+  checkLocalConnect()
+
+  setTimeout(function() {
+    clearInterval(checkLocalConnectInterval);
+  }, 30000);
 
   // function checkQrcodeConnect() {
   //   if (!mobileData || !mobileData.domain || !mobileData.httpsPort) {
@@ -215,28 +223,43 @@
 
   lovense.sendVibration = function(toyId, power, duration) {
     duration = duration || 0;
-    power = power || 0;
+    power = Math.round(power) || 0;
+    if (power > 20) { power = 20; }
 
-    var params = {
-      sec: duration,
-      v: power,
+    if (isQrcodeConnect && mobileData.appType !== 'remote') {
+
+      var params = {
+        sec: duration,
+        v: power,
+      }
+      if (toyId) {
+        params.t = toyId
+      }
+
+      ajax({
+        url: `https://${mobileData.domain}:${mobileData.httpsPort}/AVibrate`,
+        data: params,
+        type: 'GET',
+        dataType: 'form',
+        success: function(response) {
+
+        },
+        error: function(status) {
+
+        },
+      });
     }
-    if (toyId) {
-      params.t = toyId
+    else if (isLocalConnect || mobileData.appType === 'remote') {
+      lovense.sendCommand(
+        {
+          "command": "Function",
+          "action": "Vibrate:" + power,
+          "timeSec": duration,
+          "toy": toyId,
+          "apiVer": 1
+        }
+      );
     }
-
-    ajax({
-      url: `https://${mobileData.domain}:${mobileData.httpsPort}/AVibrate`,
-      data: params,
-      type: 'GET',
-      dataType: 'form',
-      success: function(response) {
-
-      },
-      error: function(status) {
-
-      },
-    });
   }
 
   lovense.sendCommand = function(data) {
