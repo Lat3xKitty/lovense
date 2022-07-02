@@ -24,8 +24,15 @@ $(function() {
           '</div>' +
 
           '<p>' +
-            'We use the Lovense Connect App to connect to your toys. ' +
+            'We use the Lovense Connect/Remote App to connect to your toys. ' +
             'Please install the app and try again.' +
+          '</p>' +
+
+          '<p>' +
+            'In the Mobile Lovense Remote App, please enable the "Game Mode" Located in the Me -> Settings -> Game Mode' +
+          '</p>' +
+          '<p>' +
+            'In the Desktop Lovense Remote app, please go to the Boxes in the bottom left and Enable "Allow Control" in the External Control menu' +
           '</p>' +
 
           '<p>' +
