@@ -13,8 +13,11 @@
     <link href="https://vinorodrigues.github.io/bootstrap-dark-5/dist/css/bootstrap-night.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./swiped-events.min.js"></script>
+    <script src="./simplepeer.min.js"></script>
 
     <script src="./lan-mod.js"></script>
+
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
@@ -28,12 +31,21 @@
             Setup
           </button>
         </li>
+
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="tetris-tab" data-bs-toggle="tab"
               data-bs-target="#tetris" type="button" role="tab" aria-controls="tetris" aria-selected="false">
             Tetris
           </button>
         </li>
+
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="valentines-tab" data-bs-toggle="tab"
+              data-bs-target="#valentines" type="button" role="tab" aria-controls="valentines" aria-selected="false">
+            Valentines Connect
+          </button>
+        </li>
+
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="about-tab" data-bs-toggle="tab"
               data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="false">
@@ -94,6 +106,95 @@
 
         </div>
 
+        <!-- valentines -->
+        <div class="tab-pane fade" id="valentines" role="tabpan" aria-labelledby="valentines-tab">
+          <h3>Valentines Connect</h3>
+          <p>Connect the hearts to make a match, the more matches you make the more powerful the vibrations.</p>
+
+          <div id="valentines-host-client" class="row">
+            <div class="col-sm-6">
+              <button class="btn btn-success" style="width:100%" id="valentines-host">Host</button>
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-success" style="width:100%" id="valentines-client">Client</button>
+            </div>
+          </div>
+
+          <br>
+
+          <div id="valentines-host-instructions" style="display:none">
+            <h4>You are the Host!</h4>
+
+            <p style="white-space: pre-line;">
+              1. Share your Connect Code with your partner.
+              2. Wait for them to share their Connect Code with you.
+              3. Put their Connect Code in the Peer's Connect Code box.
+              4. Click Submit.
+              5. Enjoy!
+            </p>
+          </div>
+
+          <div id="valentines-client-instructions" style="display:none">
+            <h4>You are the Client!</h4>
+
+            <p style="white-space: pre-line;">
+              1. Wait for your partner to share their Connect Code with you.
+              2. Put their Connect Code in the Peer's Connect Code box.
+              3. Click Submit.
+              4. You will be given a Connect Code, share this with your partner.
+              5. Wait for them to finish the same thing.
+              6. Enjoy!
+            </p>
+          </div>
+
+          <div id="valentines-connect-container" class="row" style="display:none;">
+            <div class="col-md-6">
+              <label for="valentines-yourconnectcode">Your Connect Code</label>
+              <input type="text" id="valentines-yourconnectcode" readonly />
+              <a href="#" id="valentines-copyconnectcode">Copy</a>
+            </div>
+
+            <div class="col-md-6">
+              <label for="valentines-peercode">Peer's Connect Code</label>
+              <input type="text" id="valentines-peercode" />
+              <a href="#" id="valentines-submitpeercode">Submit</a>
+            </div>
+          </div>
+
+          <!-- ========================================================================================================================== -->
+
+          <div id="valentines-main" style="display:none">
+            <div class="chat">
+              <div class="chat-title">
+                <h1>Partner</h1>
+                <h2>IS LOVENSE CONNECTED INFO HERE</h2>
+                <figure class="avatar">
+                  <img src="https://freesvg.org/img/abstract-user-flat-4.png" />
+                </figure>
+              </div>
+              <div class="messages">
+                <div class="messages-content"></div>
+              </div>
+              <div class="message-box">
+                <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+                <button type="submit" class="message-submit">Send</button>
+              </div>
+            </div>
+
+            <!-- Have some tools for Vibrations -->
+            <div class="row">
+              <div class="col-md-4">
+                <button class="btn btn-success" id="valentines-vibrate-all">Vibrate All toys</button>
+              </div>
+
+              <div class="col-md-4">
+                <button class="btn btn-success" id="valentines-vibrate-pattern-lastmessages">Create Pattern from Last Message</button>
+              </div>
+            </div>
+
+          </div> <!-- valentines-main -->
+        </div>
+
 
         <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
           <h3>About</h3>
@@ -111,13 +212,9 @@
 
     <script src="connection.js"></script>
     <script src="tetris.js"></script>
+    <script src="valentinesday.js"></script>
 
 
-    <style>
-      html,
-      body {
-          overscroll-behavior-y: contain;
-      }
-    </style>
+    <style>html, body { overscroll-behavior-y: contain; }</style>
 </body>
 </html>

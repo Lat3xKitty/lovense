@@ -3,8 +3,6 @@
 Intended to be a wide arrange of simle arcade style games like 2048 + Tetris + More but took longer to develop and only got Tetris working.
 Enjoy Tetris with a little twist, making you slowly get distracted the further you advance, play in one of two modes
 
-**Play at: https://lat3xkitty.github.io/lovense-devjam/**
-
 ## Setup
 Please open Lovense Connect app or Local Desktop App.
 <br>
