@@ -80,6 +80,12 @@ $(function () {
       processMessage(data);
     });
 
+    connection.on('error', function (err) {
+      if (err.message === 'cannot send after peer is destroyed' || err.code === "ERR_DESTROYED") {
+        alert("Connection closed. Please refresh the page to reconnect.");
+      }
+    });
+
     $('#valentines-submitpeercode').on('click', function () {
       connection.signal(JSON.parse(atob($('#valentines-peercode').val())));
     });
@@ -231,6 +237,10 @@ $(function () {
               lovense.sendVibration(toys[i].id, json.power, 1);
             }
           }
+
+          $messages.append(
+            $('<div class="general-message"></div>').text('Partner sent you a Vibration!')
+          )
           break;
 
         case 'vibrate-pattern':
@@ -249,6 +259,11 @@ $(function () {
               apiVer: 2,
             })
           }
+
+          $messages.append(
+            $('<div class="general-message"></div>').text('Partner sent you a custom Vibration!')
+          )
+          break;
       }
     }
     catch (e) {
@@ -258,14 +273,36 @@ $(function () {
 
   // ========================================================================================
 
-  $('#valentines-vibrate-all').on('click', function () {
+  $('#valentines-vibrate-low').on('click', function () {
     if (connection) {
-      connection.send(JSON.stringify({
-        type: 'vibrate',
-        power: 5
-      }));
+      connection.send(JSON.stringify({ type: 'vibrate', power: 5 }));
+
+      $messages.append(
+        $('<div class="general-message"></div>').text('Sending a light vibration')
+      )
     }
   });
+
+  $('#valentines-vibrate-mid').on('click', function () {
+    if (connection) {
+      connection.send(JSON.stringify({ type: 'vibrate', power: 10 }));
+
+      $messages.append(
+        $('<div class="general-message"></div>').text('Sending a medium vibration')
+      )
+    }
+  });
+
+  $('#valentines-vibrate-high').on('click', function () {
+    if (connection) {
+      connection.send(JSON.stringify({ type: 'vibrate', power: 20 }));
+
+      $messages.append(
+        $('<div class="general-message"></div>').text('Sending a high vibration')
+      )
+    }
+  });
+
 
   $('#valentines-vibrate-pattern-lastmessages').on('click', function () {
     var lastMessage = $('.message-personal').last().text();
@@ -283,6 +320,10 @@ $(function () {
         type: 'vibrate-pattern',
         pattern: pattern
       }));
+
+      $messages.append(
+        $('<div class="general-message"></div>').text('Sending pattern based on last message')
+      )
     }
   });
 })
