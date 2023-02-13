@@ -58,7 +58,7 @@ $(function () {
       var toys = lovense.getToys();
       var enabledToysFull = [];
       for (var i = 0; i < toys.length; i++) {
-        if (enabledToys.indexOf(toy[i].id) === -1) { continue; }
+        if (enabledToys.indexOf(toys[i].id.toLowerCase()) === -1) { continue; }
 
         enabledToysFull.push({
           name: upperCaseFirst(toys[i].name),
@@ -66,7 +66,10 @@ $(function () {
         });
       }
 
-      connection.send(JSON.stringify({ type: 'toys', toys: enabledToysFull }));
+      connection.send(JSON.stringify({
+        type: 'toys',
+        toys: enabledToysFull
+      }));
 
       $(".message-input").trigger('input');
     });
@@ -188,9 +191,16 @@ $(function () {
             return toy.name;
           });
 
-          $('#valentines-main h2').text(
-            'Toys: ' + toys
-          );
+          if (toys.length > 0) {
+            $('#valentines-main h2').text(
+              'Toys: ' + toys.join(', ')
+            );
+          }
+          else {
+            $('#valentines-main h2').text(
+              'Toys: No Toys connected ;-;' 
+            );
+          }
           break;
 
         case 'typing':
@@ -211,14 +221,14 @@ $(function () {
 
         case 'vibrate':
           if (json.id) {
-            lovense.vibrate(json.id, json.power, 0.5);
+            lovense.sendVibration(json.id, json.power, 1);
           }
           else {
             var toys = lovense.getToys();
             for (var i = 0; i < toys.length; i++) {
-              if (enabledToys.indexOf(toys[i].id) === -1) { continue; }
+              if (enabledToys.indexOf(toys[i].id.toLowerCase()) === -1) { continue; }
               
-              lovense.vibrate(toys[i].id, json.power, 0.5);
+              lovense.sendVibration(toys[i].id, json.power, 1);
             }
           }
           break;
@@ -226,13 +236,13 @@ $(function () {
         case 'vibrate-pattern':
           var toys = lovense.getToys();
           for (var i = 0; i < toys.length; i++) {
-            if (enabledToys.indexOf(toys[i].id) === -1) { continue; }
+            if (enabledToys.indexOf(toys[i].id.toLowerCase()) === -1) { continue; }
 
             lovense.sendCommand({
               command: 'Pattern',
               
-              rule: 'V1;F:v,r,p,t,f,s;S:1000#',
-              strength: json.pattern,
+              rule: 'V1;F:v,r,p,t,f,s;S:100#',
+              strength: json.pattern.join(';'),
               timeSec: (json.pattern.length * 2),
               
               toy: toys[i].id,
@@ -241,8 +251,8 @@ $(function () {
           }
       }
     }
-    catch {
-      console.error('Valentines - DATA - ERROR', data)
+    catch (e) {
+      console.error('Valentines - DATA - ERROR', data, e);
     }
   }
 
