@@ -57,7 +57,9 @@ var colours = [
 // ====================================================================
 // Events for Keys / Swiping (mobile)
 
-$('#tetris').on('keydown', function(e) {
+$('body').on('keydown', function(e) {
+  if (currentTab !== '#tetris') { return; }
+
   var keys = {
     37: 'left',
     38: 'rotate',
